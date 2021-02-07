@@ -57,6 +57,11 @@ client.on('message', msg => {
     msg.reply('pong');
   } else if (msg.body == 'good morning') {
     msg.reply('selamat pagi');
+
+   } else if (msg.body == 'Test') {
+      msg.reply('Hello Word');
+
+
   } else if (msg.body == '!groups') {
     client.getChats().then(chats => {
       const groups = chats.filter(chat => chat.isGroup);
@@ -128,7 +133,7 @@ const checkRegisteredNumber = async function(number) {
 }
 
 // Send message
-app.post('/send-message', [
+app.post('/kirim', [
   body('number').notEmpty(),
   body('message').notEmpty(),
 ], async (req, res) => {
@@ -160,8 +165,11 @@ app.post('/send-message', [
   client.sendMessage(number, message).then(response => {
     res.status(200).json({
       status: true,
-      response: response
+      response: response,
+      message: 'Pesan Terkirim'
     });
+
+
   }).catch(err => {
     res.status(500).json({
       status: false,
